@@ -6,20 +6,18 @@ namespace Demo08.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly SystemDbContext context;
+
+        //Injection de dépendances par le constucteur
+        public HomeController(SystemDbContext context)
+        {
+            this.context = context;
+        }
         public IActionResult Index()
         {
-            return View();
+            return View(context.Authors.ToList());
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+       
     }
 }
